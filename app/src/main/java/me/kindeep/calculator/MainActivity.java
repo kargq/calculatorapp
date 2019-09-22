@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
         calc = Calculator.getInstance();
         display = findViewById(R.id.resultTextView);
-        numberField = new NumberField(display);
-
+        numberField = NumberField.getInstance();
+        numberField.updateTextView(display);
+        numberField.update();
         bindEventListeners();
     }
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         numberField.setValue(calc.getLastOperand());
 //        numberField.clearVal();
         display.setText(numberField.getValueString());
-
+        toClear = true;
     }
 
     void afterOperatorClick() {
@@ -109,10 +110,13 @@ public class MainActivity extends AppCompatActivity {
         numberField.update();
     }
 
+    Boolean toClear = false;
+
     void numberButtonClick() {
-        if (calc.operator == null) {
-        } else {
+        if (toClear) {
+            Log.e("wut", "Clear val");
             numberField.clearVal();
+            toClear = false;
         }
     }
 

@@ -2,6 +2,7 @@ package me.kindeep.calculator;
 
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.NavUtils;
 
@@ -10,188 +11,164 @@ import java.util.List;
 
 public class NumberField {
 
-    List<Integer> num;
-    int pointPos = -1;
-    TextView textView ;
+    //    List<Integer> num;
+    String num;
+    //    int pointPos = -1;
+    TextView textView;
+    private static NumberField instance = null;
+
 
     private NumberField() {
+//        num = new ArrayList<>();
+        num = "";
         update();
     }
 
+    public static NumberField getInstance() {
+        if (instance == null) {
+            instance = new NumberField();
+        }
+        return instance;
+    }
 
-    NumberField(TextView view) {
-        num = new ArrayList<>();
+    void updateTextView(TextView view) {
         textView = view;
-        update();
+    }
+
+
+    int getPointPos() {
+        return num.indexOf('.');
     }
 
     void button0() {
-        num.add(0);
+        num = num + "0";
         update();
     }
 
 
     void button1() {
-        num.add(1);
+        num = num + "1";
+
         update();
 
     }
 
     void button2() {
-        num.add(2);
+        num = num + "2";
         update();
 
     }
 
     void button3() {
-        num.add(3);
+        num = num + "3";
         update();
 
     }
 
     void button4() {
-        num.add(4);
+        num = num + "4";
+
         update();
 
     }
 
     void button5() {
-        num.add(5);
+        num = num + "5";
         update();
 
     }
 
     void button6() {
-        num.add(6);
+        num = num + "6";
         update();
 
     }
 
     void button7() {
-        num.add(7);
+        num = num + "7";
         update();
 
     }
 
     void button8() {
-        num.add(8);
+        num = num + "8";
         update();
 
     }
 
     void button9() {
-        num.add(9);
+        num = num + "9";
         update();
 
     }
 
     void buttonDot() {
+
+        if (getPointPos() > 0) {
+            StringBuilder bld = new StringBuilder(num);
+            bld.delete(getPointPos(), getPointPos() + 1);
+            num = bld.toString();
+        }
+
+        num = num + ".";
         update();
 
-        pointPos = num.size();
     }
 
     Double getValue() {
-        if (num.size() == 0) return null;
-        int intVal = 0;
-        int rad = 1;
-        for (int i = 0; i < num.size(); i++) {
-            int index = num.size() - i - 1;
-            intVal = intVal + num.get(index) * rad;
-            rad = rad * 10;
-        }
+//        if (num.size() == 0) return null;
+//        int intVal = 0;
+//        int rad = 1;
+//        for (int i = 0; i < num.size(); i++) {
+//            int index = num.size() - i - 1;
+//            intVal = intVal + num.get(index) * rad;
+//            rad = rad * 10;
+//        }
+//
+//        if (pointPos <= num.size() && pointPos >= 0) {
+//            int pow = pointPos - num.size();
+//            return intVal * Math.pow(10, pow);
+//        } else {
+//            return (double) intVal;
+//        }
+        try {
+            return Double.parseDouble(num);
 
-        if (pointPos <= num.size() && pointPos >= 0) {
-            int pow = pointPos - num.size();
-            return intVal * Math.pow(10, pow);
-        } else {
-            return (double) intVal;
+        } catch (NumberFormatException e) {
+            return null;
         }
     }
 
     void delete() {
-        if (num.size() == pointPos) {
-            pointPos = -1;
-        } else {
-            num.remove(num.size() - 1);
-
+        if (num.length() > 0) {
+            StringBuilder bld = new StringBuilder(num);
+            bld.delete(num.length() - 1, num.length());
+            num = bld.toString();
         }
     }
 
     String getValueString() {
-        String res = "";
-        if (pointPos == 0) {
-            res = res + "0";
-        }
-        for (int i = 0; i < num.size(); i++) {
-            if (i == pointPos) {
-                res = res + ".";
-            }
-            res = res + num.get(i);
-        }
-        if (pointPos == num.size()) {
-            res = res + ".";
-        }
-        return res;
+        return num;
     }
 
     void clearVal() {
-        num = new ArrayList<>();
-        pointPos = -1;
+        num = "";
     }
 
     void setValue(Double val) {
-        clearVal();
-        if (val == null) {
+        if (val == null || val.isInfinite() || val.isNaN()) {
+            num = "";
+            if (textView != null)
+                Toast.makeText(textView.getContext(), "INVALID OPERATION", Toast.LENGTH_SHORT).show();
+        } else {
+            clearVal();
+            num = val.toString();
         }
-        else {
-            int count = 0;
-            for (Character c : val.toString().toCharArray()) {
-                switch (c) {
-                    case '0':
-                        num.add(0);
-                        break;
-                    case '1':
-                        num.add(1);
-                        break;
-                    case '2':
-                        num.add(2);
-                        break;
-                    case '3':
-
-                        num.add(3);
-                        break;
-                    case '4':
-                        num.add(4);
-                        break;
-                    case '5':
-                        num.add(5);
-                        break;
-                    case '6':
-                        num.add(6);
-                        break;
-                    case '7':
-                        num.add(7);
-                        break;
-                    case '8':
-                        num.add(8);
-                        break;
-                    case '9':
-                        num.add(9);
-                        break;
-                    case '.':
-                        pointPos = count;
-                        break;
-                }
-                count++;
-            }
-        }
+        update();
     }
 
-    void update(){
-        textView.setText(getValueString());
-
-
+    void update() {
+        if (textView != null) textView.setText(getValueString());
     }
 
 }

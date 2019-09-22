@@ -1,6 +1,7 @@
 package me.kindeep.calculator;
 
 import android.graphics.Path;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -64,6 +65,7 @@ public class Calculator {
                     lastOperand = currOperand;
                 }
                 currOperand = null;
+                Log.e("op", "eval");
                 operator = null;
             } else {
                 lastOperand = currOperand;
@@ -87,6 +89,8 @@ public class Calculator {
         currOperand = null;
         lastOperand = null;
         operator = null;
+        Log.e("op", "reset");
+
     }
 
     public Double getCurrOperand() {
