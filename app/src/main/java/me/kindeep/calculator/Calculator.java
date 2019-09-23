@@ -17,7 +17,7 @@ public class Calculator {
 
     }
 
-    public static Calculator getInstance() {
+    static Calculator getInstance() {
         if (instance == null) {
             return new Calculator();
         } else {
@@ -87,7 +87,7 @@ public class Calculator {
 
     public void reset() {
         currOperand = null;
-        lastOperand = null;
+        lastOperand = 0.0;
         operator = null;
         Log.e("op", "reset");
 

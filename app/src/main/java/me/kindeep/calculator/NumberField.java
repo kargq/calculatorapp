@@ -1,13 +1,7 @@
 package me.kindeep.calculator;
 
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.core.app.NavUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NumberField {
 
@@ -24,7 +18,7 @@ public class NumberField {
         update();
     }
 
-    public static NumberField getInstance() {
+    static NumberField getInstance() {
         if (instance == null) {
             instance = new NumberField();
         }
@@ -148,7 +142,11 @@ public class NumberField {
     }
 
     String getValueString() {
-        return num;
+        if (num.equals("")) {
+            return "0";
+        } else {
+            return num;
+        }
     }
 
     void clearVal() {

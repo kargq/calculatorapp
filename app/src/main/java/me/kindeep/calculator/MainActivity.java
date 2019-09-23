@@ -27,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
         bindEventListeners();
     }
 
-    void digitButtonClick() {
-        calc.setCurrOperand(numberField.getValue());
-    }
-
     void afterOperatorClickResolve() {
         numberField.setValue(calc.getLastOperand());
 //        numberField.clearVal();
@@ -169,8 +165,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void buttonCClick() {
-        numberField.delete();
-        numberField.update();
+        if (calc.operator == null) {
+
+            numberField.delete();
+            numberField.update();
+
+        } else {
+            calc.operator = null;
+        }
     }
 
     void bindEventListeners() {
