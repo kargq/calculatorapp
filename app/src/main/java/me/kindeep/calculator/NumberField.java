@@ -1,21 +1,23 @@
 package me.kindeep.calculator;
 
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class NumberField {
 
+    Boolean toClear = false;
     //    List<Integer> num;
     String num;
     //    int pointPos = -1;
-    TextView textView;
+//    TextView textView;
     private static NumberField instance = null;
 
 
     private NumberField() {
 //        num = new ArrayList<>();
         num = "";
-        update();
+//        update();
     }
 
     static NumberField getInstance() {
@@ -25,9 +27,9 @@ public class NumberField {
         return instance;
     }
 
-    void updateTextView(TextView view) {
-        textView = view;
-    }
+//    void updateTextView(TextView view) {
+//        textView = view;
+//    }
 
 
     int getPointPos() {
@@ -36,63 +38,62 @@ public class NumberField {
 
     void button0() {
         num = num + "0";
-        update();
+//        update();
     }
 
 
     void button1() {
         num = num + "1";
-
-        update();
+//        update();
 
     }
 
     void button2() {
         num = num + "2";
-        update();
+//        update();
 
     }
 
     void button3() {
         num = num + "3";
-        update();
+//        update();
 
     }
 
     void button4() {
         num = num + "4";
 
-        update();
+//        update();
 
     }
 
     void button5() {
         num = num + "5";
-        update();
+//        update();
 
     }
 
     void button6() {
         num = num + "6";
-        update();
+//        update();
 
     }
 
     void button7() {
         num = num + "7";
-        update();
+//        update();
 
     }
 
     void button8() {
         num = num + "8";
-        update();
+//        update();
 
     }
 
     void button9() {
         num = num + "9";
-        update();
+//        update();
 
     }
 
@@ -105,7 +106,7 @@ public class NumberField {
         }
 
         num = num + ".";
-        update();
+//        update();
 
     }
 
@@ -153,19 +154,21 @@ public class NumberField {
         num = "";
     }
 
-    void setValue(Double val) {
+    boolean setValue(Double val) {
         if (val == null || val.isInfinite() || val.isNaN()) {
             num = "";
-            if (textView != null)
-                Toast.makeText(textView.getContext(), "INVALID OPERATION", Toast.LENGTH_SHORT).show();
+            return false;
+//            if (textView != null)
+//                Toast.makeText(textView.getContext(), "INVALID OPERATION", Toast.LENGTH_SHORT).show();
         } else {
             clearVal();
             num = val.toString();
+            return true;
         }
-        update();
+//        update(textView);
     }
 
-    void update() {
+    void update(TextView textView) {
         if (textView != null) textView.setText(getValueString());
     }
 

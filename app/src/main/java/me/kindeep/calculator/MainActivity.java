@@ -6,32 +6,36 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     Calculator calc;
     NumberField numberField;
     TextView display;
+//    Boolean numberField.toClear = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.e("OPERATOR", Calculator.getInstance().operator + "");
 
         calc = Calculator.getInstance();
         display = findViewById(R.id.resultTextView);
         numberField = NumberField.getInstance();
-        numberField.updateTextView(display);
-        numberField.update();
+        numberField.update(display);
         bindEventListeners();
+        Log.e("OPERATOR", calc.operator + "");
     }
 
     void afterOperatorClickResolve() {
-        numberField.setValue(calc.getLastOperand());
+        boolean success = numberField.setValue(calc.getLastOperand());
+        if (!success)
+            Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show();
 //        numberField.clearVal();
         display.setText(numberField.getValueString());
-        toClear = true;
+        numberField.toClear = true;
     }
 
     void afterOperatorClick() {
@@ -43,76 +47,74 @@ public class MainActivity extends AppCompatActivity {
                 "Why");
         numberButtonClick();
         numberField.button0();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button1Click() {
         numberButtonClick();
         numberField.button1();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button2Click() {
         numberButtonClick();
         numberField.button2();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button3Click() {
         numberButtonClick();
         numberField.button3();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button4Click() {
         numberButtonClick();
         numberField.button4();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button5Click() {
         numberButtonClick();
         numberField.button5();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button6Click() {
         numberButtonClick();
         numberField.button6();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button7Click() {
         numberButtonClick();
         numberField.button7();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button8Click() {
         numberButtonClick();
         numberField.button8();
-        numberField.update();
+        numberField.update(display);
     }
 
     void button9Click() {
         numberButtonClick();
         numberField.button9();
-        numberField.update();
+        numberField.update(display);
     }
 
     void buttonDotClick() {
         numberButtonClick();
         numberField.buttonDot();
-        numberField.update();
+        numberField.update(display);
     }
 
-    Boolean toClear = false;
-
     void numberButtonClick() {
-        if (toClear) {
+        if (numberField.toClear) {
             Log.e("wut", "Clear val");
             numberField.clearVal();
-            toClear = false;
+            numberField.toClear = false;
         }
     }
 
@@ -154,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
         afterOperatorClickResolve();
         Log.e("www", "" + calc);
+
+        numberField.toClear = false;
     }
 
 
@@ -161,17 +165,17 @@ public class MainActivity extends AppCompatActivity {
         Log.e("What", calc.toString());
         calc.reset();
         numberField.clearVal();
-        numberField.update();
+        numberField.update(display);
     }
 
     void buttonCClick() {
         if (calc.operator == null) {
 
             numberField.delete();
-            numberField.update();
+            numberField.update(display);
 
         } else {
-            calc.operator = null;
+            calc.clearOperator();
         }
     }
 

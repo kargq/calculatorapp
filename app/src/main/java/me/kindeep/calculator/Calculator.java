@@ -13,21 +13,20 @@ public class Calculator {
 
     private static Calculator instance = null;
 
-    private Calculator() {
-
-    }
-
-    static Calculator getInstance() {
-        if (instance == null) {
-            return new Calculator();
-        } else {
-            return instance;
-        }
-    }
-
     Double lastOperand = null;
     Double currOperand = null;
     Operators operator = null;
+
+    private Calculator() {
+        Log.e("OPERATOR", "new instance created");
+        reset();
+    }
+
+    static Calculator getInstance() {
+        if (instance == null)
+            instance = new Calculator();
+        return instance;
+    }
 
     private void operator() {
 
@@ -38,6 +37,10 @@ public class Calculator {
         if (lastOperand != null) {
             operator = a;
         }
+    }
+
+    public void clearOperator() {
+        operator = null;
     }
 
     public void evaluate() {
@@ -60,8 +63,7 @@ public class Calculator {
                         default:
                             break;
                     }
-                }
-                else {
+                } else {
                     lastOperand = currOperand;
                 }
                 currOperand = null;
@@ -86,10 +88,11 @@ public class Calculator {
     }
 
     public void reset() {
+        Log.e("OPERATOR", "BEFORE RESET operator" + operator);
         currOperand = null;
         lastOperand = 0.0;
         operator = null;
-        Log.e("op", "reset");
+        Log.e("OPERATOR", "reset");
 
     }
 
