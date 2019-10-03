@@ -15,7 +15,8 @@ public class SuperCalculator {
     }
 
     public enum ButtonType {
-        ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, PLUS, MINUS, MULTIPLY, DIVIDE, DOT, EQUALS
+        ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, PLUS, MINUS, MULTIPLY, DIVIDE,
+        DOT, EQUALS, CLEARALL, DELETE
     }
 
     private Context context;

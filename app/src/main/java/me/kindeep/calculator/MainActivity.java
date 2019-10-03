@@ -10,33 +10,46 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import org.mozilla.javascript.tools.jsc.Main;
-
 public class MainActivity extends AppCompatActivity {
 
     Calculator calc;
     NumberField numberField;
     TextView display;
     SuperCalculator superCalc;
+    StateManager currState;
 
 //    Boolean numberField.toClear = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        initiate();
+    }
+
+    private void initiate() {
+        //        setContentView(R.layout.activity_main);
+        currState = StateManager.getInstance();
+        if (currState.getState() == StateManager.State.NML) {
+            setContentView(R.layout.activity_main);
+            bindNmlEventListeners();
+        } else if (currState.getState() == StateManager.State.FUN) {
+            setContentView(R.layout.activity_main_super);
+            bindFunEventListeners();
+        }
+
+
         Log.e("OPERATOR", Calculator.getInstance().operator + "");
 
         calc = Calculator.getInstance();
         display = findViewById(R.id.resultTextView);
         numberField = NumberField.getInstance();
         numberField.update(display);
-        bindEventListeners();
         Log.e("OPERATOR", calc.operator + "");
 
         // SuperCalculator
         superCalc = SuperCalculator.getInstance();
     }
+
 
     void afterOperatorClickResolve() {
         boolean success = numberField.setValue(calc.getLastOperand());
@@ -188,7 +201,146 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void bindEventListeners() {
+    void funButtonClick(SuperCalculator.ButtonType btn) {
+
+    }
+
+    void bindFunEventListeners() {
+        findViewById(R.id.button0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.ZERO);
+            }
+        });
+        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.ONE);
+            }
+        });
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.TWO);
+            }
+        });
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.THREE);
+
+            }
+        });
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.FOUR);
+            }
+        });
+        findViewById(R.id.button5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.FIVE);
+
+            }
+        });
+        findViewById(R.id.button6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.SIX);
+
+            }
+        });
+        findViewById(R.id.button7).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.SEVEN);
+
+            }
+        });
+        findViewById(R.id.button8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.EIGHT);
+
+            }
+        });
+        findViewById(R.id.button9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.NINE);
+
+            }
+        });
+        findViewById(R.id.buttonDot).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.DOT);
+
+            }
+        });
+        findViewById(R.id.buttonDivide).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.DIVIDE);
+
+            }
+        });
+        findViewById(R.id.buttonMultiply).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.MULTIPLY);
+
+            }
+        });
+        findViewById(R.id.buttonPlus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.PLUS);
+
+            }
+        });
+        findViewById(R.id.buttonMinus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.MINUS);
+
+            }
+        });
+        findViewById(R.id.buttonEqual).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.EQUALS);
+
+            }
+        });
+        findViewById(R.id.buttonA).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.CLEARALL);
+
+            }
+        });
+        findViewById(R.id.buttonC).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.DELETE);
+            }
+        });
+        findViewById(R.id.toggleButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToggleButton toggle = findViewById(R.id.toggleButton);
+                if (!toggle.isChecked()) {
+                    currState.setState(StateManager.State.NML);
+                    initiate();
+                }
+            }
+        });
+    }
+
+
+    void bindNmlEventListeners() {
         findViewById(R.id.button0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -303,9 +455,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ToggleButton toggle = findViewById(R.id.toggleButton);
                 if (toggle.isChecked()) {
-                    Intent i = new Intent(MainActivity.this, SuperAvtivity.class);
-                    i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(i);
+                    currState.setState(StateManager.State.FUN);
+                    initiate();
                 }
             }
         });
