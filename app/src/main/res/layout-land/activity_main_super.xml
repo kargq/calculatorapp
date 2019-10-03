@@ -10,11 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:weightSum="1"
         android:orientation="horizontal"
         android:background="@color/resultBackground"
         >
-
 
         <ToggleButton
             android:id="@+id/toggleButton"
@@ -23,21 +21,19 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="8dip"
             android:layout_weight="0"
+            android:checked="true"
             android:textOff="@string/toggleNormal"
             android:textOn="@string/toggleFunction" />
 
         <TextView
-            android:id="@+id/resultTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|end"
-            android:padding="16dip"
             android:text="0"
             android:textSize="32sp"
-            android:layout_weight="1"
+            android:padding="16dip"
+            android:id="@+id/resultTextView"
             />
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -113,14 +109,15 @@
         >
 
         <TextView
-            android:id="@+id/button0"
-            style="@style/calcButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            style="@style/calcButton"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/button0" />
+            android:id="@+id/button0"
+            android:text="@string/button0"
+            />
 
         <TextView
             android:layout_width="0dp"
@@ -244,7 +241,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-
+        android:background="@color/colorAccent"
         >
 
         <TextView
@@ -278,6 +275,28 @@
             android:focusable="true"
             android:id="@+id/buttonR"
             android:text="@string/buttonR"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/calcButton"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/buttonBracketOpen"
+            android:text="@string/buttonBracketOpen"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/calcButton"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/buttonBracketClose"
+            android:text="@string/buttonBracketClose"
             />
 
         <TextView

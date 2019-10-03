@@ -20,4 +20,8 @@
     <string name="buttonEqual">=</string>
     <string name="buttonDot">.</string>
     <string name="buttonS">S</string>
+    <string name="buttonBracketOpen">(</string>
+    <string name="buttonBracketClose">)</string>
+    <string name="toggleNormal">NML</string>
+    <string name="toggleFunction">FUN</string>
 </resources>

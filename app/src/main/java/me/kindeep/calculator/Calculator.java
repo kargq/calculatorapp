@@ -28,10 +28,6 @@ public class Calculator {
         return instance;
     }
 
-    private void operator() {
-
-    }
-
     public void setOperator(Operators a) {
         evaluate();
         if (lastOperand != null) {
