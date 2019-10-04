@@ -16,12 +16,19 @@ public class SuperCalculator {
 
     public enum ButtonType {
         ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, PLUS, MINUS, MULTIPLY, DIVIDE,
-        DOT, EQUALS, CLEARALL, DELETE
+        DOT, EQUALS, CLEARALL, DELETE, OPENBRACKET, CLOSEBRACKET
     }
 
     private Context context;
     private Scriptable scope;
-    private String toEval;
+
+    public String getEvalString() {
+        String result = toEval.replace("*", "×");
+        result = result.replace("/", "÷");
+        return result;
+    }
+
+    private String toEval = "";
 
     private SuperCalculator() {
         context = Context.enter();
@@ -35,7 +42,7 @@ public class SuperCalculator {
         return result.toString();
     }
 
-    public void buttonPress(ButtonType opt) {
+    public void buttonPress(ButtonType opt) throws InvalidInputException{
         if (opt == ButtonType.ZERO) {
             toEval += "0";
         } else if (opt == ButtonType.ONE) {
@@ -65,9 +72,22 @@ public class SuperCalculator {
         } else if (opt == ButtonType.MULTIPLY) {
             toEval += "*";
         } else if (opt == ButtonType.EQUALS) {
-            toEval += "=";
+                toEval = evaluate().toString();
         } else if (opt == ButtonType.DOT) {
             toEval += ".";
+        } else if (opt == ButtonType.CLOSEBRACKET) {
+            toEval += ")";
+        } else if (opt == ButtonType.OPENBRACKET) {
+            toEval += "(";
+        } else if (opt == ButtonType.DELETE) {
+            if (toEval.length() > 0) {
+                StringBuilder bld = new StringBuilder(toEval);
+                bld.delete(toEval.length() - 1, toEval.length());
+                toEval = bld.toString();
+            }
+        }
+        else if (opt == ButtonType.CLEARALL) {
+            toEval = "";
         }
     }
 

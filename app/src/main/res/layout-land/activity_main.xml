@@ -102,6 +102,18 @@
             android:text="@string/button9"
             />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/calcButton"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/buttonA"
+            android:text="@string/buttonA"
+            />
+
+
 
     </LinearLayout>
 
@@ -168,6 +180,16 @@
             />
 
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/calcButton"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/buttonC"
+            android:text="@string/buttonC"
+            />
 
 
 
@@ -237,16 +259,6 @@
             android:text="@string/buttonDivide"
             />
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-
-        >
-
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -258,49 +270,6 @@
             android:text="@string/buttonEqual"
             />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/calcButton"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/buttonS"
-            android:text="@string/buttonS"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/calcButton"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/buttonR"
-            android:text="@string/buttonR"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/calcButton"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/buttonC"
-            android:text="@string/buttonC"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/calcButton"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/buttonA"
-            android:text="@string/buttonA"
-            />
-
     </LinearLayout>
+
 </LinearLayout>

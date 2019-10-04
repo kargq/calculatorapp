@@ -255,27 +255,6 @@
             android:text="@string/buttonEqual"
             />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/calcButton"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/buttonS"
-            android:text="@string/buttonS"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/calcButton"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/buttonR"
-            android:text="@string/buttonR"
-            />
 
         <TextView
             android:layout_width="0dp"

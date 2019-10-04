@@ -27,27 +27,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initiate() {
-        //        setContentView(R.layout.activity_main);
+        calc = Calculator.getInstance();
+        numberField = NumberField.getInstance();
+        superCalc = SuperCalculator.getInstance();
         currState = StateManager.getInstance();
+
         if (currState.getState() == StateManager.State.NML) {
             setContentView(R.layout.activity_main);
+            display = findViewById(R.id.resultTextView);
             bindNmlEventListeners();
+            numberField.update(display);
         } else if (currState.getState() == StateManager.State.FUN) {
             setContentView(R.layout.activity_main_super);
+            display = findViewById(R.id.resultTextView);
             bindFunEventListeners();
+            funDisplayUpdate();
         }
-
-
-        Log.e("OPERATOR", Calculator.getInstance().operator + "");
-
-        calc = Calculator.getInstance();
-        display = findViewById(R.id.resultTextView);
-        numberField = NumberField.getInstance();
-        numberField.update(display);
-        Log.e("OPERATOR", calc.operator + "");
-
-        // SuperCalculator
-        superCalc = SuperCalculator.getInstance();
     }
 
 
@@ -202,7 +197,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void funButtonClick(SuperCalculator.ButtonType btn) {
+        try {
+            superCalc.buttonPress(btn);
+        }
+        catch (SuperCalculator.InvalidInputException e) {
+            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
+        }
+        funDisplayUpdate();
+    }
 
+    void funDisplayUpdate() {
+        display.setText(superCalc.getEvalString());
     }
 
     void bindFunEventListeners() {
@@ -327,6 +332,18 @@ public class MainActivity extends AppCompatActivity {
                 funButtonClick(SuperCalculator.ButtonType.DELETE);
             }
         });
+        findViewById(R.id.buttonBracketClose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.CLOSEBRACKET);
+            }
+        });
+        findViewById(R.id.buttonBracketOpen).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                funButtonClick(SuperCalculator.ButtonType.OPENBRACKET);
+            }
+        });
         findViewById(R.id.toggleButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -423,6 +440,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.buttonPlus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 buttonPlusClick();
             }
         });
