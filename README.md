@@ -1,13 +1,15 @@
 # Calculator App
 
-## Additional Features Implemented
+Simple calculator with a basic mode and a function mode.
+
+![Screenshot of app](https://i.imgur.com/g77KO7k.png)
+
+## Features
 
 1. Parentheses allowed (in function mode)
 
-2. Add and implement the decimal (.) key (allowed in both modes)
+2. Decimal (.) key (allowed in both modes)
 
 3. Interpretation of the - key as a negative sign in operations
 
-5. Formula entry (function mode on top left)
-
-6. If you do #5, a radio button (or comparable) for switching between formula entry and 'basic' mode. Use toggle on top left.
+5. Formula entry.
